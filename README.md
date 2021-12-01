@@ -14,4 +14,4 @@ Go to day: [1](#day1)
 
 3m 11s (#1552) / 6m 04s (#973) - [code](https://github.com/meithan/AoC20/blob/main/solutions/day01/day01.py)
 
-As usual Day 1 is just a warm-up. Not very impressed with the time it took me to correctly code a few lines of code, but oh well. At least I got gold stars on our [private leaderboard](https://meithan.net/AoC21/).
+As usual Day 1 is just a warm-up. Not very impressed with the time it took me to correctly write a few lines of code, but oh well. At least I got both gold medals on our [private leaderboard](https://meithan.net/AoC21/).
