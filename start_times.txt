@@ -1,2 +1,3 @@
 # Start times (UTC-6) for all days of AoC21
 1, 2021-11-30 11:00:00
+2, 2021-12-01 11:00:00
