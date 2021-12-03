@@ -6,11 +6,21 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2)
+Go to day: [1](#day1) [2](#day2) [3](#day3)
 
 ---
 
-**Day 2**: [ Dive!](https://adventofcode.com/2021/day/2)<a name="day1"></a>
+**Day 3**: [Binary Diagnostic](https://adventofcode.com/2021/day/3)<a name="day3"></a>
+
+4m 12s (#298) / 14m 40s (#359) - [code](https://github.com/meithan/AoC21/blob/main/day02/day03.py)
+
+A simple string manipulation problem -- though there's probably a sneakier binary-arithmetic way of solving it. The only bitwise operation I used was to obtain epsilon directly from gamma by inverting the bitsring in gamma by [XOR](https://en.wikipedia.org/wiki/Bitwise_operation#XOR)'ing it with a mask of all '1's (so XOR'ing the numeric value of gamma with 2^s-1, where s is the number of bits).
+
+Part 2 took me way too long to code, and I should've leveraged zip and [collections.Counter](https://docs.python.org/3/library/collections.html#collections.Counter) instead of counting everything by hand.
+
+---
+
+**Day 2**: [Dive!](https://adventofcode.com/2021/day/2)<a name="day2"></a>
 
 3m 35s (#1583) / 5m 13s (#985) - [code](https://github.com/meithan/AoC21/blob/main/day02/day02.py)
 
