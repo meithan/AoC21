@@ -6,13 +6,21 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5)
+
+---
+
+**Day 5**: [Hydrothermal Venture](https://adventofcode.com/2021/day/5)<a name="day5"></a>
+
+14m 17s (#1410) / 21m 36s2 (#1136) - [solution](https://github.com/meithan/AoC21/blob/main/day05)
+
+Another straightforward problem. For each segment, we set the x and y positions to one end of the segment and march towards the other end. At each step we increment the coordinates by amounts dx and dy, which can be 0, +1 or -1 depending on the sign of the difference between the coordinates of the endpoints. We stop after we've reached the end point. We record all visited points using a dict indexed by coordinates (instead of creating a huge grid spanning the whole domain that will end up with mostly zero counts). We use separate dicts for each Part: we only update that of Part 1 when we're marching along a horizontal or vertical segment (i.e. the end points share a coordinate).
 
 ---
 
 **Day 4**: [Giant Squid](https://adventofcode.com/2021/day/4)<a name="day4"></a>
 
-18m 21s (#1028) / 28m 52 (#1408) - [solution](https://github.com/meithan/AoC21/blob/main/day04)
+18m 21s (#1028) / 28m 52s (#1408) - [solution](https://github.com/meithan/AoC21/blob/main/day04)
 
 A straightforward problem, just requiring to write the code to simulate the game as described. Not proud of my speed.
 
