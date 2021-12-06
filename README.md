@@ -14,13 +14,41 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6)
 
 11m 20s (#3709) / 1h 20m 7s (#8323) - [solution](https://github.com/meithan/AoC21/blob/main/day06)
 
-Grrr. I'm sure there's a simple mathematical way to compute this discrete exponential growth problem, but I couldn't find it. I solved it through brute force instead, and Part 2 took me more than 1 hour.
+Grrr. I'm sure there's a simple mathematical way to compute this discrete [exponential growth](https://en.wikipedia.org/wiki/Exponential_growth) problem, but I couldn't find it. I solved it through brute force instead, and arriving of a practical strategy for Part 2 took me more than 1 hour.
 
 For Part 1, I simply simulated the process in Python. Start with the list of counters for each fish (the input), and apply the rules successively to the list, appending new fish (so a counter of 8) to the end of the list. For 80 days, this works. Note that you can't iterate directly over the elements of a list and modify the list inside the for loop, so we have to iterate over the index, with the max value given by the list's current size (which also prevents simulating new fish in the same day they're created).
 
-But this is way too slow in Python for Part 2. So I ported the code to C++ to brute force a table of pre-computed growth sizes starting from a single fish and an initial counter of 8. I computed the table up to 256+8 days, to be safe. I used the C++ vector class, the equivalent of Python's lists (dynamic arrays). To minimize RAM usage, I used uint8_t as the vector data type (as the individual counters are never greater than 8, they fit in 1 byte, the smallest native data type), and I had to use an long long int (8-byte int) for the size data type, as the size reaches 6,703,087,164 by 264 days, larger than the max value of a normal 4-byte int. Generating the table up to 264 takes about 45 seconds (as no fish in the input has an initial counter larger than 5, I really only needed up to 261, but oh well).
+But this is way too slow in Python for Part 2. So I ported the code to C++ to brute force a table of pre-computed growth sizes starting from a single fish and an initial counter of 8. I computed the table up to 256+8 days, to be safe. I used the C++ [`vector`](https://www.cplusplus.com/reference/vector/vector/) class, the equivalent of Python's lists ([dynamic arrays](https://en.wikipedia.org/wiki/Dynamic_array)). To minimize RAM usage, I used [`uint8_t`](https://en.cppreference.com/w/cpp/types/integer) as the data type for the elements of the `vector` (as the individual counters are never greater than 8, they fit in 1 byte, the smallest native data type), and I had to use an long long int (8-byte int) for the size data type, as the size reaches 6,703,087,164 by 264 days, larger than the [max value](https://www.tutorialspoint.com/cprogramming/c_data_types.htm) of a normal 4-byte int. Generating the table up to 264 takes about 45 seconds (as no fish in the input has an initial counter larger than 5, I really only needed up to 261, but oh well).
 
 Having that pre-computed table, it's only a matter of loading the input with the initial counters of all the fish, and computing the total number of fish that will spawn from each one using the table. If the initial counter is X, then we simply look up the value in the table for day N+(8-X) -- with N = 80 for Part 1 and 256 for Part 2. This worked. Oof!
+
+**EDIT**: Well, I'll be damned. I kept thinking of a way to solve it using some mathematics, this being a (discrete) exponential growth problem ... And I quickly realized there's a much simpler way of thinking about the problem! Instead of simulating the individual fish as I did, one simply needs to keep track of *how many* fish are in each "state", where the state of a fish is simply its internal timer, which is a number between 0 and 8.
+
+Say the state of a fish is S. If S > 0, then on the next day its state will be S - 1. If on the other hand S = 0, on the next day its state will be 6, and there will be a new fish with S = 8. Thus, in each iteration all fish with S > 0 simply shift left in the array that counts the states, and those with S = 0 get added to those with S = 6 (the *new* ones with S = 6, which were those with S = 7 at the start of the day), while that same number becomes the new S = 8. The following code carries out this process:
+
+    def simulate_day():
+      zeros = fish[0]
+      for i in range(8):
+        fish[i] = fish[i+1]
+      fish[8] = zeros
+      fish[6] += zeros
+
+So for instance in the sample input, `3,4,3,1,2`, we initially have one fish in the "1", "2" and "4" states each, and 2 fish in the "3" state. Thus the initial fish states array looks like:
+
+    state     0 1 2 3 4 5 6 7 8
+    counts = [0 1 1 2 1 0 0 0 0]
+
+After one day, the counts array becomes:
+
+    state     0 1 2 3 4 5 6 7 8
+    counts = [1 1 2 1 0 0 0 0 0]
+
+All values simply shifted to the left. On the next day we have to apply the special rule to the S = 0 counts, while just left-shifting the rest, giving:
+
+    state     0 1 2 3 4 5 6 7 8
+    counts = [1 2 1 0 0 0 1 0 1]
+
+The total number of fish is then simply the sum of the array. That's it! Repeating this a total of 80 or 256 times (with the actual input) produces both answers in less then 100 milliseconds (in Python)! I've added a new program implementing this not-dumb solution. Doh!
 
 ---
 
