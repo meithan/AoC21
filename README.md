@@ -6,7 +6,19 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7)
+
+---
+
+**Day 7**: [The Treachery of Whales](https://adventofcode.com/2021/day/7)<a name="day7"></a>
+
+5m 18s (#?) / ? (#?) - [solution](https://github.com/meithan/AoC21/blob/main/day07)
+
+A straightforward one. Only optimization to mention is using the fact that the sum from 1 to N is equal to N*(N+1)/2. Speeds up computation in Part 2 (although it's still solvable by computing the sum each time).
+
+An idea I had while solving it is that the optimal position is a sort of centroid of the points ... And at least for Part 1 (where normal distance is used) it's indeed true. The *median* of the coordinates is the optimal position!
+
+This problem, that of finding the point that minimizes the sum of distances to a given set of points, is called the *[geometric median]*(https://en.wikipedia.org/wiki/Geometric_median) problem. In 1D, the solution is just the median of the coordinates. But, astonishingly, for 2D and above, it has been shown that the general problem has no closed-form solution (except in special cases, such as 3 or 4 coplanar points). Interesting!
 
 ---
 
