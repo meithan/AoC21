@@ -12,7 +12,7 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 **Day 7**: [The Treachery of Whales](https://adventofcode.com/2021/day/7)<a name="day7"></a>
 
-5m 18s (#?) / ? (#?) - [solution](https://github.com/meithan/AoC21/blob/main/day07)
+5m 18s (#1654) / 8m 38s (#1290) - [solution](https://github.com/meithan/AoC21/blob/main/day07)
 
 A straightforward one. Only optimization to mention is using the fact that the sum from 1 to N is equal to N*(N+1)/2. Speeds up computation in Part 2 (although it's still solvable by computing the sum each time).
 
