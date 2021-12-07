@@ -18,7 +18,7 @@ A straightforward one. Only optimization to mention is using the fact that the s
 
 An idea I had while solving it is that the optimal position is a sort of centroid of the points ... And at least for Part 1 (where normal distance is used) it's indeed true. The *median* of the coordinates is the optimal position!
 
-This problem, that of finding the point that minimizes the sum of distances to a given set of points, is called the *[geometric median]*(https://en.wikipedia.org/wiki/Geometric_median) problem. In 1D, the solution is just the median of the coordinates. But, astonishingly, for 2D and above, it has been shown that the general problem has no closed-form solution (except in special cases, such as 3 or 4 coplanar points). Interesting!
+This problem, that of finding the point that minimizes the sum of distances to a given set of points, is called the *[geometric median](https://en.wikipedia.org/wiki/Geometric_median)* problem. In 1D, the solution is just the median of the coordinates. But, astonishingly, for 2D and above, it has been shown that the general problem has no closed-form solution (except in special cases, such as 3 or 4 coplanar points). Interesting!
 
 ---
 
