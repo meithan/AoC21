@@ -23,13 +23,13 @@ For Part 1, we check only the output words of each entry:
 * If a word has 4 letters, it must be digit 4
 * If a word has 7 letters, it must be digit 8
 
-We then simply count how many 1's, 4's, 7's and 8's were found and that's it.
+We then simply count how many 1s, 4s, 7s and 8s were found and that's it.
 
 For Part 2, I ended solving it using two strategies, but took way too much in deciding which to use and to make it work.
 
 Strategy 1: brute force
 
-This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying them all. For each entry, for a given key we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds and is easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
+This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's completely feasible to brute force the problem by trying them all. In each entry, for a given trial key we go over each of the 10 signal patterns and see if it deciphers to one of the digits under that key. If it works for all patterns, we've found the correct key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds. Using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) is a nice compact way to iterate over all permutations of 'abcdefg' (instead of the seven nested fors).
 
 Strategy 2: breaking the cipher by successive elimination
 
