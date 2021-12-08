@@ -10,6 +10,48 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 ---
 
+**Day 8**: [Seven Segment Search](https://adventofcode.com/2021/day/8)<a name="day8"></a>
+
+16m 27s (#4529) / 1h 50m 30s (#5472) - [solution](https://github.com/meithan/AoC21/blob/main/day08)
+
+A problem that required careful reading to understand it. And one for which Part 2 (it was kinda obious what it was gonna be after reading Part 1) took me way too long to solve due to choosing the wrong strategy.
+
+For Part 1, we check only the output words of each entry:
+
+* If a word has 2 letters, it must be digit 1
+* If a word has 3 letters, it must be digit 7
+* If a word has 4 letters, it must be digit 4
+* If a word has 7 letters, it must be digit 8
+
+We then simply count how many 1's, 4's, 7's and 8's were found and that's it.
+
+For Part 2, I ended solving it using two strategies, but took way too much in deciding which to use and to make it work.
+
+Strategy 1: brute force
+
+This is a simple substitution cipher of a 7-letter alphabet (the seven segments abcdefg), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying all keys. For a given key, we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We can now decipher the output values and solve the problem. This breaks the code in a couple of seconds and is very easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
+
+Strategy 2: breaking the cipher by successive elimination
+
+The second, more clever strategy is to work out the key by elimination by analizing the 10 signal patterns according to their length. We create a mapping of the letters 'abcdefg' to sets containing all possibilites, initially all letters. Then we narrow down the options by successively applying the following rules:
+
+* The 2-letter word is number 1, so each of its letters must be one of "cf"
+* The 3-letter word is number 7, so each of its letters must be one of "acf"
+* The 4-letter word is number 4, so each of its letters must be one of "bcdf"
+* The three 5-letter words correspond to numbers 2, 3 and 5, and we notice how many times the letters appear in these numbers:
+  * The letters that appear in all three must be one of "adg"
+  * The letters that appear in only two of the three must be one of "cf"
+  * The letters that appear in only one of the three must be one of "be"
+* The three 6-letter words correspond to 0, 6 and 9, and again we notice many times the letters appear in these numbers:
+  * The letters that appear in all three must be one of "abfg"
+  * The letters that appear only in two of the three must be one of "cde"
+
+In order to apply each rule we simply update the set corresponding to each option by computing the set intersection witht the letters in the restriction; the `&` operator works as intersection when applied to Python [sets](https://docs.python.org/3/library/stdtypes.html#set). For instance, if at some point 'a' has been narrowed down to {a, b, c, g}, and we find an 'a' in a 3-letter word which means 'a' must translate to one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
+
+Once these rules have been applied, most letters end up with a single remaining option, and we can use these solved letters to solve the remaining ones. With this, the key has been deciphered, and we can now solve the problem by decoding the outputs of each entry.
+
+---
+
 **Day 7**: [The Treachery of Whales](https://adventofcode.com/2021/day/7)<a name="day7"></a>
 
 5m 18s (#1654) / 8m 38s (#1290) - [solution](https://github.com/meithan/AoC21/blob/main/day07)
