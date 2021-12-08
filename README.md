@@ -29,7 +29,7 @@ For Part 2, I ended solving it using two strategies, but took way too much in de
 
 Strategy 1: brute force
 
-This is a simple substitution cipher with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying all keys. For each entry, for a given key we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds and is easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
+This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying all keys. For each entry, for a given key we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds and is easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
 
 Strategy 2: breaking the cipher by successive elimination
 
