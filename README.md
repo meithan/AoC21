@@ -29,11 +29,11 @@ For Part 2, I ended solving it using two strategies, but took way too much in de
 
 Strategy 1: brute force
 
-This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying all keys. For each entry, for a given key we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds and is easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
+This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's feasible to brute force the problem by trying them all. For each entry, for a given key we go over each of the 10 signal patterns and see if it deciphers to one of the digits. If the key works for all patterns, we've found the key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds and is easy to write using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) to iterate over all permutations of 'abcdefg'.
 
 Strategy 2: breaking the cipher by successive elimination
 
-The second, more clever strategy is to work out the key by elimination by analizing the 10 signal patterns according to their length. We create a mapping of the letters 'abcdefg' to Python [sets](https://docs.python.org/3/library/stdtypes.html#set) containing all possibilites, initially all letters. Then we narrow down the options by successively applying the following rules:
+The second, more clever strategy is to work out the key by elimination by analizing the 10 signal patterns and applying restrictions derived from the letters contained in each digit. We create a mapping of the cipher letters 'abcdefg' to Python [sets](https://docs.python.org/3/library/stdtypes.html#set) containing all remaining possibilites, initially all letters. Then we narrow down the options by applying the following rules to each of the 10 encoded signal patterns:
 
 * The 2-letter word is number 1, so each of its letters must be one of 'cf'
 * The 3-letter word is number 7, so each of its letters must be one of 'acf'
@@ -45,8 +45,9 @@ The second, more clever strategy is to work out the key by elimination by analiz
 * The three 6-letter words correspond to 0, 6 and 9, and again we notice many times the letters appear in these numbers:
   * The letters that appear in all three must be one of 'abfg'
   * The letters that appear only in two of the three must be one of 'cde'
+* The 7-letter word is number 8, but since it uses all seven letters it is of no use so we just ignore it
 
-In order to apply each rule we simply update the set corresponding to each cipher letter by computing the [set intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) with the letters in the restriction; the `&` operator works as intersection when applied to Python sets. For instance, if at some point 'a' has been narrowed down to {'a', 'b', 'c', 'g'}, and we find an 'a' in a 3-letter word which means 'a' must translate into one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
+To apply each rule we simply update the set corresponding to each cipher letter by computing the [set intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) with the letters in the restriction; the `&` operator works as intersection when applied to Python sets. For instance, if at some point 'a' has been narrowed down to {'a', 'b', 'c', 'g'}, and we find an 'a' in a 3-letter word which means 'a' must translate into one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
 
 Once these rules have been applied, most cipher letters end up with a single remaining option, and we can use these solved letters to solve for the remaining ones. With this, the key has been deciphered, and we can now solve the problem by decoding the outputs of each entry.
 
