@@ -14,7 +14,7 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 16m 27s (#4529) / 1h 50m 30s (#5472) - [solution](https://github.com/meithan/AoC21/blob/main/day08)
 
-A problem that required careful reading to understand it. And one for which Part 2 (it was kinda obious what it was gonna be after reading Part 1) took me way too long to solve due to choosing the wrong strategy.
+A problem that required careful reading to understand it. And one for which Part 2 (it was kinda obvious what it was gonna be after reading Part 1) took me way too long to solve due to choosing the wrong strategy to approach the problem. Both solutions are really not difficult or long to code.
 
 For Part 1, we check only the output words of each entry:
 
@@ -25,7 +25,7 @@ For Part 1, we check only the output words of each entry:
 
 We then simply count how many 1s, 4s, 7s and 8s were found and that's it.
 
-For Part 2, I ended solving it using two strategies, but took way too much in deciding which to use and to make it work.
+For Part 2, I ended up solving it using two different strategies, but it took me way too much alternating between the two and making them work.
 
 Strategy 1: brute force
 
