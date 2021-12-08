@@ -43,7 +43,7 @@ The second, more clever strategy is to work out the key by elimination by analiz
   * The letters that appear in only two of the three must be one of 'cf'
   * The letters that appear in only one of the three must be one of 'be'
 * The three 6-letter words correspond to 0, 6 and 9, and again we notice many times the letters appear in these numbers:
-  * The letters that appear in all three must be one of"'abfg'
+  * The letters that appear in all three must be one of 'abfg'
   * The letters that appear only in two of the three must be one of 'cde'
 
 In order to apply each rule we simply update the set corresponding to each cipher letter by computing the [set intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) with the letters in the restriction; the `&` operator works as intersection when applied to Python sets. For instance, if at some point 'a' has been narrowed down to {'a', 'b', 'c', 'g'}, and we find an 'a' in a 3-letter word which means 'a' must translate into one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
