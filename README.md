@@ -35,16 +35,16 @@ Strategy 2: breaking the cipher by successive elimination
 
 The second, more clever strategy is to work out the key by elimination by analizing the 10 signal patterns and applying restrictions derived from the letters contained in each digit. We create a mapping of the cipher letters 'abcdefg' to Python [sets](https://docs.python.org/3/library/stdtypes.html#set) containing all remaining possibilites, initially all letters. Then we go over each of the 10 encoded signal patterns, and narrow down the options for each letter by applying the following rules:
 
-* The only 2-letter word is number 1, so each of its letters must be one of 'cf'
-* The only 3-letter word is number 7, so each of its letters must be one of 'acf'
-* The only 4-letter word is number 4, so each of its letters must be one of 'bcdf'
+* The only 2-letter word is number 1, so each of its cipher letters must be one of 'cf'
+* The only 3-letter word is number 7, so each of its cipher letters must be one of 'acf'
+* The only 4-letter word is number 4, so each of its cipher letters must be one of 'bcdf'
 * The three 5-letter words correspond to numbers 2, 3 and 5, and we notice how many times the letters appear in these numbers:
-  * The letters that appear in all three must be one of 'adg'
-  * The letters that appear in only two of the three must be one of 'cf'
-  * The letters that appear in only one of the three must be one of 'be'
+  * The cipher letters that appear in all three must be one of 'adg'
+  * The cipher letters that appear in only two of the three must be one of 'cf'
+  * The cipher letters that appear in only one of the three must be one of 'be'
 * The three 6-letter words correspond to 0, 6 and 9, and again we notice many times the letters appear in these numbers:
-  * The letters that appear in all three must be one of 'abfg'
-  * The letters that appear only in two of the three must be one of 'cde'
+  * The cipherletters that appear in all three must be one of 'abfg'
+  * The cipher letters that appear only in two of the three must be one of 'cde'
 * The only 7-letter word is number 8, but since it uses all seven letters it is of no use so we just ignore it
 
 To apply each rule we simply update the set corresponding to each cipher letter by computing the [set intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) with the letters in the restriction; the `&` operator works as intersection when applied to Python sets. For instance, if at some point 'a' has been narrowed down to {'a', 'b', 'c', 'g'}, and we find an 'a' in a 3-letter word which means 'a' must translate into one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
