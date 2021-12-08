@@ -1,4 +1,4 @@
-# Day 6: 
+# Day 8: Seven Segment Search
 
 import itertools
 import sys
