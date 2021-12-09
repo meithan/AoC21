@@ -14,13 +14,13 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 1h 34m 54s (#12188) / 2h 55m 32s (#10901) - [solution](https://github.com/meithan/AoC21/blob/main/day09)
 
-An easy problem, but I had D&D night so I coded Part 1 in short bursts during the session, and Part 2 only after it finished. So times are not representative of the effort required.
+An easy problem, but I had D&D night so I coded Part 1 in short bursts during the session, and Part 2 only after it finished. So times are not representative of the time spent.
 
-We read the heightmap into a 2D array. For Part 1 we simply check all locations to see if they're lower than all their neighbors (the wording is that it has to be *strictly* lower, so if a point's height ties with any of its neighbors, it's not a low point). We handle edges of the map by always generating the coordinates of all four neighbors but checking if they're valid before proceeding.
+We read the heightmap into a 2D array. For Part 1 we simply check all locations to see if they're lower than all their neighbors (the wording is that it has to be *strictly* lower, so if a point's height ties with any of its neighbors, it's not a low point). We handle edges of the map by always going over all four neighbors, but skipping any that is outside the domain.
 
-For Part 2, this is a straightforward example of graph traversal where the goal is to find the [connected components](https://en.wikipedia.org/wiki/Component_(graph_theory)), since that is what the basins are. The idea is to start from each of the low points and see what other points are reachable by always going *up*.
+For Part 2, this is a straightforward example of graph traversal where the goal is to find the [connected components](https://en.wikipedia.org/wiki/Component_(graph_theory)), since that is what the basins are. The idea is to start from each of the low points and see what other points are reachable by always going *up*, ignoring points with a height of 9 (as they're not part of any basin).
 
-Both [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) and [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search) (BFS) can be used for this. I opted for BFS here, for which Python's built-in FIFO [queue.Queue](https://docs.python.org/3/library/queue.html#queue-objects) class is ideal. I usually prefer non-recursive implementations of these graph algorithms since that completely avoids recursion depth limits.
+Both [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) and [breadth-first search](https://en.wikipedia.org/wiki/Breadth-first_search) (BFS) can be used for this. I opted for BFS here, for which Python's built-in FIFO [queue.Queue](https://docs.python.org/3/library/queue.html#queue-objects) class is very handy. I usually prefer non-recursive implementations of these graph algorithms since that completely avoids recursion depth limits.
 
 This is just one way to implement BFS:
 
@@ -28,14 +28,18 @@ This is just one way to implement BFS:
 2. In each case, we create an initially empty [set](https://docs.python.org/3/tutorial/datastructures.html#sets) (O(1) inclusion lookups on average) in which we'll store the points visited, which constitute the basin, and we initialize a queue to store the points still be to checked. We add the low point to the queue.
 3. While the queue is not empty (which is written very literally in Python):
   1. We get the next point from the queue, and add it to the visited set.
-  2. We check each of its neighbors. If the neighbor is already in the visited set, we skip it. If it's not, we check whether its height is *higher* than the point we just extracted. If so, we push the neighbor to the queue. Note that points with a height of 9 are just ignored (as they're not part of any basin).
+  2. We check each of its neighbors. If the neighbor is already in the visited set, we skip it. If it's not, we check whether its height is *higher* than the point we just extracted. If so, we push the neighbor to the queue. Note that points with a height of 9 are just ignored.
 4. When the queue is finally empty we stop, and the points in the visited set constitute the basin.
 
 I also plotted the height map and the basins, just for fun:
 
+<p align="center">
 <img src="https://github.com/meithan/AoC21/blob/main/day09/day09_map1.png" alt="drawing" width="500"/>
+</p>
 
+<p align="center">
 <img src="https://github.com/meithan/AoC21/blob/main/day09/day09_map2.png" alt="drawing" width="500"/>
+</p>
 
 
 ---
