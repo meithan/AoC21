@@ -14,16 +14,16 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 17m 49s (#3901) / 24m 44s (#2659) - [solution](https://github.com/meithan/AoC21/blob/main/day10)
 
-This is a variation of the the classic parens matching problem, which is solved with use of [stacks](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)); we can use a simple Python list for that. The idea is simple. We go over the characters of each line and:
+This is a variation of the the classic parens matching problem, which is solved with a[stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)); we can use a simple Python list for that. The idea is simple. For each line, we go over its characters and:
 
 - If it's an opening character (`(`, `[`, `{`, `<`) we push it into the stack.
-- If it's a closing character (`)`, `]`, `}`, `>`), we check what's at the top of the stack:
-    - If it's a matching character, we pop it out of the stack, and we continue;
-    - If it's *not* matching, the line is *corrupt*.
+- If it's a closing character (`)`, `]`, `}`, `>`), we check what's at on top of the stack:
+    - If it's a matching character, we pop it out of the stack, and continue;
+    - If it's *not* a matching character, the line is *corrupt*.
 
-Once the whole line has been checked, if the stack is empty the line is complete and valid (which is not the case for any line in the problem), and if the stack is not empty the line is incomplete (but not corrupt).
+If the process reaches the end of the line without finding a corrupt character, then if the stack is empty the line is complete and valid (which is not the case for any line in the problem), and if the stack is not empty the line is incomplete (but not corrupt).
 
-In Part 1 we only do this process until an invalid closing character is found, and return it so the score can be computed. The non-corrupt lines are set aside for later.
+In Part 1 we only do this process until an invalid closing character is found, and use it to compute the score. The non-corrupt lines are set aside.
 
 In Part 2, for each incomplete line we go over the complete process and after that the stack contains the ordered list of unmatched opening characters. The missing closing characters are just the coresponding characters but in reverse (easy to do in Python).
 
