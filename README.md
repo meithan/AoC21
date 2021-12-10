@@ -59,13 +59,13 @@ For Part 1, we check only the output words of each entry:
 
 We then simply count how many 1s, 4s, 7s and 8s were found and that's it.
 
-For Part 2, I ended up solving it using two different strategies, but it took me way too much alternating between the two and making them work.
+For Part 2, I ended up solving it using <s>two</s> different strategies, but it took me way too much alternating between the two and making them work.
 
-Strategy 1: brute force
+Strategy 1: Brute force
 
 This is a simple [substitution cipher](https://en.wikipedia.org/wiki/Substitution_cipher) with a 7-letter alphabet (the letters corresponding to the seven segments, 'abcdefg'), so there are 7! = 5040 possible keys. Hence, it's completely feasible to brute force the problem by trying them all. In each entry, for a given trial key we go over each of the 10 signal patterns and see if it deciphers to one of the digits under that key. If it works for all patterns, we've found the correct key. We then decipher the output values and solve the problem. This breaks the key in a couple of seconds. Using [itertools.permutations](https://docs.python.org/3/library/itertools.html#itertools.permutations) is a nice compact way to iterate over all permutations of 'abcdefg' (instead of the seven nested fors).
 
-Strategy 2: breaking the cipher by successive elimination
+Strategy 2: Breaking the cipher by successive elimination ([code](https://github.com/meithan/AoC21/blob/main/day08/day08_alt.py))
 
 The second, more clever strategy is to work out the key by elimination by analizing the 10 signal patterns and applying restrictions derived from the letters contained in each digit. We create a mapping of the cipher letters 'abcdefg' to Python [sets](https://docs.python.org/3/library/stdtypes.html#set) containing all remaining possibilites, initially all letters. Then we go over each of the 10 encoded signal patterns, and narrow down the options for each letter by applying the following rules:
 
@@ -84,6 +84,26 @@ The second, more clever strategy is to work out the key by elimination by analiz
 To apply each rule we simply update the set corresponding to each cipher letter by computing the [set intersection](https://en.wikipedia.org/wiki/Intersection_(set_theory)) with the letters in the restriction; the `&` operator works as intersection when applied to Python sets. For instance, if at some point 'a' has been narrowed down to {'a', 'b', 'c', 'g'}, and we find an 'a' in a 3-letter word which means 'a' must translate into one of 'acf', then we compute the set intersection {'a', 'b', 'c', 'g'} & {'a', 'c', 'f'} = {'a', 'c'}. Thus, 'b' and 'g' have been ruled out.
 
 Once these rules have been applied, most cipher letters end up with a single remaining option, and we can use these solved letters to solve for the remaining ones. With this, the key has been deciphered, and we can now solve the problem by decoding the outputs of each entry.
+
+**Update**: Strategy 3: Deducing the numbers without breaking the cipher ([code](https://github.com/meithan/AoC21/blob/main/day08/day08_alt2.py))
+
+People on Reddit were commenting how they solved the problem without actually fully breaking the cipher (which is also what one my friends did), so I decided to try that solution strategy.
+
+As shown in Part 1, from the 10 given encoded numbers in each entry the numbers 1, 4, 7 and 8 are immediately identifiable, as they have unique numbers of segments: 3, 4, 3 and 7, respectively. The other six numbers either have 5 segments (2, 3 and 5) or 6 segments (0, 6 and 9). However, some of them contain enough unique segment patterns that it's possible to deduce which is which. Here's the solution algorithm:
+
+1. As for Part 1, we begin by identifying what cipher words correspond to the numbers 1, 4, 7 and 8 based on the number of letters (segments that are on):
+    - The only word with 2 letters is number **1**
+    - The only word with 4 letters is number **4**
+    - The only word with 3 letters is number **7**
+    - The only word with 7 letters is number **8**
+2. We look at the three 5-letter words. The only of the three that contains the 2-letter combination corresponding to 1 (which we already found) is number **2**.
+3. We now look at the three 6-letter words. The only one that *doesn't* contain the pattern for 1 is the number **6**.
+3. The 6-letter word that contains the pattern for 3 is the number **9**.
+4. The remaining 6-letter word is the number **0**.
+5. The 5-letter word that contains the pattern for 6 (which we previously found) is number **5**.
+6. The remaining 5-letter word is number **2**.
+
+We now know the cipher patterns that correspond to each number and can thus solve the remaining portion of the problem. To determine whether a given pattern is contained in another pattern, an idiomatic way is to store the patterns (the letters) in Python sets, for which `<=` works as [subset](https://en.wikipedia.org/wiki/Subset) operator. For instance `{'a', 'b'} <= {'a', 'b', 'c'}` yields `True`.
 
 ---
 
