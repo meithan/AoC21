@@ -119,7 +119,7 @@ As shown in Part 1, from the 10 given encoded numbers in each entry the numbers 
 3. We now look at the three 6-letter words. The only one that *doesn't* contain the pattern for 1 is the number **6**.
 3. The 6-letter word that contains the pattern for 3 is the number **9**.
 4. The remaining 6-letter word is the number **0**.
-5. The 5-letter word that contains the pattern for 6 (which we previously found) is number **5**.
+5. The 5-letter word that *is contained in* the pattern for 6 (which we previously found) is number **5**.
 6. The remaining 5-letter word is number **2**.
 
 We now know the cipher patterns that correspond to each number and can thus solve the remaining portion of the problem. To determine whether a given pattern is contained in another pattern, an idiomatic way is to store the patterns (the letters) in Python sets, for which `<=` works as [subset](https://en.wikipedia.org/wiki/Subset) operator. For instance `{'a', 'b'} <= {'a', 'b', 'c'}` yields `True`.
