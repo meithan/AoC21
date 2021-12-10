@@ -108,7 +108,7 @@ Once these rules have been applied, most cipher letters end up with a single rem
 
 People on Reddit were commenting how they solved the problem without actually fully breaking the cipher (which is also what one my friends did), so I decided to try that solution strategy.
 
-As shown in Part 1, from the 10 given encoded numbers in each entry the numbers 1, 4, 7 and 8 are immediately identifiable, as they have unique numbers of segments: 3, 4, 3 and 7, respectively. The other six numbers either have 5 segments (2, 3 and 5) or 6 segments (0, 6 and 9). However, some of them contain enough unique segment patterns that it's possible to deduce which is which. Here's the solution algorithm:
+As shown in Part 1, from the 10 given encoded numbers in each entry the numbers 1, 4, 7 and 8 are immediately identifiable, as they have unique numbers of segments: 3, 4, 3 and 7, respectively. The other six numbers either have 5 segments (2, 3 and 5) or 6 segments (0, 6 and 9). The key is that some of them contain enough unique segment patterns to deduce which is which, and after finding those the remaining ones can be deduced. Here's the solution algorithm:
 
 1. As for Part 1, we begin by identifying what cipher words correspond to the numbers 1, 4, 7 and 8 based on the number of letters (segments that are on):
     - The only word with 2 letters is number **1**
@@ -117,9 +117,9 @@ As shown in Part 1, from the 10 given encoded numbers in each entry the numbers 
     - The only word with 7 letters is number **8**
 2. We look at the three 5-letter words. The only of the three that contains the 2-letter combination corresponding to 1 (which we already found) is number **2**.
 3. We now look at the three 6-letter words. The only one that *doesn't* contain the pattern for 1 is the number **6**.
-3. The 6-letter word that contains the pattern for 3 is the number **9**.
+3. The only 6-letter word that contains the pattern for 3 is the number **9**.
 4. The remaining 6-letter word is the number **0**.
-5. The 5-letter word that *is contained in* the pattern for 6 (which we previously found) is number **5**.
+5. The only 5-letter word that *is contained in* the pattern for 6 (which we previously found) is number **5**.
 6. The remaining 5-letter word is number **2**.
 
 We now know the cipher patterns that correspond to each number and can thus solve the remaining portion of the problem. To determine whether a given pattern is contained in another pattern, an idiomatic way is to store the patterns (the letters) in Python sets, for which `<=` works as [subset](https://en.wikipedia.org/wiki/Subset) operator. For instance `{'a', 'b'} <= {'a', 'b', 'c'}` yields `True`.
