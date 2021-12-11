@@ -6,7 +6,28 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11)
+
+---
+
+**Day 11**: [Syntax Scoring](https://adventofcode.com/2021/day/11)<a name="day9"></a>
+
+23m 57s (#1775) / 26:03 (#1588) - [solution](https://github.com/meithan/AoC21/blob/main/day11)
+
+Although it was an easy problem a mistake slowed me down. To simulate the evolution of the problem (it's debatable whether this constitutes a [cellular automaton](https://en.wikipedia.org/wiki/Cellular_automaton), but it's certainly very similar) the energies are stored in a 2D array (just nested lists). Then the algorithm for each iteration is as follows:
+
+- Increment all energies by one. Any octopus that goes above 9 --one that will flash-- is added to a Python set (`to_flash`).
+- Create a new empty set to store octopi that have already flashed (`has_flashed`).
+- Then, as long as `to_flash` is not empty:
+    - Pop the next octopus, and add it to `has_flashed`.
+    - Reset the octopus' energy to zero.
+    - Loop over the neighbors *that have not flashed* (by checking `has_flashed`), and increment them by one. If any goes over 9, we add it to `to_flash`
+
+The length of `has_flashed` after each step is the number of octopi that flashed, and adding those up solves Part 1.
+
+For Part 2 I was smelling blood: I feared that the number of steps until all the octopi flash simultaneously would be astronomical, making it impractical to find the moment by direct simulation. But I followed the right strategy: before starting to look for an alternative solution, just try if direct simulation solves the problem. And for this case it did. So solving Part 2 took me only two more minutes (the time to read it and write the few extra lines of code).
+
+We were fortunate to avoid that curveball. Is there a way to predict the number of steps neeed for all octopi to flash from the initial condition without simulation?
 
 ---
 
