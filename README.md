@@ -6,11 +6,40 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12)
 
 ---
 
-**Day 11**: [Syntax Scoring](https://adventofcode.com/2021/day/11)<a name="day9"></a>
+**Day 12**: [Passage Pathing](https://adventofcode.com/2021/day/12)<a name="day12"></a>
+
+23m 41s (#2957) / 42m 32s (#2178) - [solution](https://github.com/meithan/AoC21/blob/main/day12)
+
+A twist on standard maze-solving problems. I wrote a modified [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) where we don't keep mark nodes as visited (since we're allowed to visit large caves multiple times) and instead check each path before extending it. We also don't stop after finding the end node, just save it and keep going (standard when looking for all paths).
+
+We first load the input creating the adjacency list of the caves, stored as a "name": <set of reachable caves> dict. Then, for Part 1:
+
+- Create an empty list to work as the stack.
+- Also create an empty list to store the found paths.
+- Instead of working with maze nodes, we work with full paths. We initially push the path containing just "start" to the stack.
+- Then while the stack is not empty:
+    - Pop a path from the stack
+    - If the tail node is "end", add this path to the list of found paths (but keep going)
+    - For each node adjacent to the tail node:
+        - If the child node is uppercase (a large cave), or if it's lowercase (small cave) but it's not yet in the considered path, we create a new path by adding the child node to the path, and we push this new path to the stack.
+
+This will finish as long as no two large caves are adjacent, because if that happens we'll have an infinite loop which the problem statement does not specify how to handle. But this is not the case in any of the inputs.
+
+For Part 2, we do basically the same except for the rule on when to create and push a new path. We only do so if one of the following is True:
+
+- It's a large cave (uppercase)
+- It's a small cave (lowercase) and it's not yet in the path
+- It's a small cave that is already in the path, but no small cave in the path appears twice (we have to check for that every time)
+
+This is not very efficient but the input is not very large. Optimizations would be 1) keeping an additional faster data structure to check for inclusion in the path, 2) having a way to mark a path as having visited two caves already so we don't have to check again every time.
+
+---
+
+**Day 11**: [Syntax Scoring](https://adventofcode.com/2021/day/11)<a name="day11"></a>
 
 23m 57s (#1775) / 26:03 (#1588) - [solution](https://github.com/meithan/AoC21/blob/main/day11)
 
@@ -31,7 +60,7 @@ We were fortunate to avoid that curveball. Is there a way to predict the number 
 
 ---
 
-**Day 10**: [Syntax Scoring](https://adventofcode.com/2021/day/10)<a name="day9"></a>
+**Day 10**: [Syntax Scoring](https://adventofcode.com/2021/day/10)<a name="day10"></a>
 
 17m 49s (#3901) / 24m 44s (#2659) - [solution](https://github.com/meithan/AoC21/blob/main/day10)
 
