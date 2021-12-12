@@ -9,6 +9,29 @@ import sys
 if len(sys.argv) == 1:
   sys.argv.append(sys.argv[0].replace(".py", ".in"))
 
+class Path:
+  def __init__(self, nodes=None):
+    if nodes is None:
+      self.list = []
+      self.set = set()
+    else:
+      self.list = [x for x in nodes]
+      self.set = set(self.list)
+    self.has_repeated = False
+  def tail(self):
+    return self.list[-1]
+  def add(self, node):
+    if node in self.set:
+      self.has_repeated = True
+    self.list.append(node)      
+    self.set.add(node)
+  def __contains__(self, node):
+    return node in self.set
+  def copy(self):
+    new_path = Path(self.list)
+    new_path.has_repeated = self.has_repeated
+    return new_path
+
 # Parse input
 adjacent = {}
 with open(sys.argv[1]) as f:
@@ -29,16 +52,17 @@ for name, children in adjacent.items():
 
 paths = []
 stack = []
-stack.append(["start"])
+stack.append(Path(["start"]))
 while len(stack) > 0:
   path = stack.pop()
-  node = path[-1]
-  if node == "end":
+  tail = path.tail()
+  if tail == "end":
     paths.append(path)
     continue
-  for child in adjacent[node]:
+  for child in adjacent[tail]:
     if child.isupper() or child not in path:
-      new_path = path + [child]
+      new_path = path.copy()
+      new_path.add(child)
       stack.append(new_path)
 
 print("Part 1:", len(paths))
@@ -48,31 +72,19 @@ print("Part 1:", len(paths))
 
 paths = []
 stack = []
-stack.append(["start"])
+stack.append(Path(["start"]))
 while len(stack) > 0:
   path = stack.pop()
-  node = path[-1]
-  if node == "end":
+  tail = path.tail()
+  if tail == "end":
     paths.append(path)
     continue
-  for child in adjacent[node]:
+  for child in adjacent[tail]:
     if child == "start":
       continue
-    elif child.isupper() or child not in path:
-      new_path = path + [child]
+    elif child.isupper() or child not in path or not path.has_repeated:
+      new_path = path.copy()
+      new_path.add(child)
       stack.append(new_path)
-    else:
-      has_twice = False
-      seen = set()
-      for n in path:
-        if n.islower():
-          if n in seen:
-            has_twice = True
-            break
-          else:
-            seen.add(n)
-      if not has_twice:
-        new_path = path + [child]
-        stack.append(new_path)
 
 print("Part 2:", len(paths))
