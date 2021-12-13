@@ -6,7 +6,21 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13)
+
+---
+
+**Day 13**: [Transparent Origami](https://adventofcode.com/2021/day/13)<a name="day13"></a>
+
+12m 50s (#713) / 14m 39s (#365) - [solution](https://github.com/meithan/AoC21/blob/main/day13)
+
+A cute problem. We keep the dots in a set so that duplicates are automatically handled. When folding, we mirror the relevant coordinate of the points around the fold line and add them to a new set. For instance, for a fold along x the new x coordinate is x' = fold_coord - (x - fold_coord); y remains the same.
+
+For Part 2, instead of writing code to draw the points on the terminal in ASCII art, I opted to just use [Matplotlib](https://matplotlib.org/). After resizing, the answer appeared:
+
+<p align="center">
+<img src="https://github.com/meithan/AoC21/blob/main/day13/day13_sol.png" alt="drawing" width="500"/>
+</p>
 
 ---
 
