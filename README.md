@@ -10,6 +10,26 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 ---
 
+**Day 14**: [Extended Polymerization](https://adventofcode.com/2021/day/14)<a name="day14"></a>
+
+32m 37s (#5576) / 18h 17m 19s (#27788) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day14)
+
+Ah, another problem where the naive, brute force solution is simply completely impractical for Part 2. Those are always fun.
+
+The size of the "polymer" essentially doubles at every step (the exact size obeys the recurrence N_{k+1} = 2\*N_k - 1, which solves to 2^k\*(N0 - 1) + 1), so after 40 steps it's about 2^40 ≈ 10^12 times larger. Hence, just *storing* the final polymer (with 1 letter = 1 byte) requires a few TB of space, so it most definitely won't fit in RAM (but it could conceivably be stored on disk and processed in chunks) ... Not to mention the massive time required at later stages to fully process the polymer to do one step. Hence, producing the final sequence in full is just not practical (apparently somebody managed to [brute force Part 2](https://www.reddit.com/r/adventofcode/comments/rfzq6f/2021_day_14_solutions/hoimmxq/?utm_source=share&utm_medium=web2x&context=3) through heavy optimization and parallel computing).
+
+In Part 1, where only 10 steps are required, I just implemented the polymer insertion algorithm, produced the final polymer sequence, and counted the letters ([collections.counter](https://docs.python.org/3/library/collections.html#collections.Counter) is useful for that).
+
+For Part 2 a completely different approach was needed, and I couldn't find it immediately so I left it for the next day (hence the solve time). They key is to think somewhat along the lines of the Lanternfish in [Day 6](#day6): we don't need to keep all individual elements (in this case letters of the polymer sequence), but only *counts* of them, since that's all that's asked.
+
+In this case in particular, the key insight is to keep a count of *pairs* of letters, and that during a step each pair will produce two new pairs: if AB -> C, then the pair AB will yield new pairs AC and CB. Hence, at each step we simply go over each pair and copy its count to each of its children pairs (whil removing the original pair from the count).
+
+Consider the example template: `NNCB`. This can be split into pairs `NN`, `NC` and `CB`, so the counts are initially {`NN: 1, NC: 1, CB: 1}`; a [defaultdict](https://docs.python.org/3/library/collections.html#collections.defaultdict) is a handy data structure for this. To advance one step we apply the "expanded" rules `NN -> (NC, CN)`, `NC -> (NB, BC)` and `CB -> (CH, HB)`, resulting in the new pair counts `{NC: 1, CN: 1, NB: 1, BC: 1, CH: 1, HB: 1}`. Note the we're not storing the exact sequence of overlapping pairs, and hence we can't reconstruct the exact polymer sequence -- but we *can* determine the counts of the letters.
+
+To do so, we keep in mind that all letters in the sequence, except the first and last, are actually counted twice (due to the overlapping). So we just count all letters present in the counted pairs, and divide each result by 2. Finally, we add an extra count for the first and last letters of the polymer sequence (which do not change during the process) since those weren't counted twice. And voila! The algorithm yields the correct letters counts after 40 steps in under 30 ms.
+
+---
+
 **Day 13**: [Transparent Origami](https://adventofcode.com/2021/day/13)<a name="day13"></a>
 
 12m 50s (#713) / 14m 39s (#365) - [solution](https://github.com/meithan/AoC21/blob/main/day13)
@@ -53,7 +73,7 @@ This is not very efficient but the input is not very large. Optimizations would 
 
 ---
 
-**Day 11**: [Syntax Scoring](https://adventofcode.com/2021/day/11)<a name="day11"></a>
+**Day 11**: [Dumbo Octopus](https://adventofcode.com/2021/day/11)<a name="day11"></a>
 
 23m 57s (#1775) / 26:03 (#1588) - [solution](https://github.com/meithan/AoC21/blob/main/day11)
 
