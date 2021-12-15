@@ -14,9 +14,9 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 44m 37s (#3056) / 1h 2m 15s (#2027) - [solution](https://github.com/meithan/AoC21/blob/main/day15)
 
-A straightforward graph search problem. For practice, I decided to code A* search to solve it, using the Manhattan distance as heuristic (which is [consistent](https://en.wikipedia.org/wiki/Consistent_heuristic)). The node-to-node distance cost is the risk of the arrival node.
+A straightforward graph search problem. For practice, I decided to code [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm) to solve it, using the Manhattan distance as heuristic (which is [consistent](https://en.wikipedia.org/wiki/Consistent_heuristic)). The node-to-node distance cost is the risk of the *arrival* node as specified.
 
-For Part 2, I built the extended risk grid and used that instead of the original in the A* search.
+For Part 2, I built the extended risk grid and used that in the A* search instead of the original.
 
 ---
 
