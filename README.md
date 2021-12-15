@@ -6,7 +6,17 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13) [14](#day14) [15](#day15)
+
+---
+
+**Day 15**: [Chiton](https://adventofcode.com/2021/day/15)<a name="day15"></a>
+
+44m 37s (#3056) / 1h 2m 15s (#2027) - [solution](https://github.com/meithan/AoC21/blob/main/day15)
+
+A straightforward graph search problem. For practice, I decided to code A* search to solve it, using the Manhattan distance as heuristic (which is [consistent](https://en.wikipedia.org/wiki/Consistent_heuristic)). The node-to-node distance cost is the risk of the arrival node.
+
+For Part 2, I built the extended risk grid and used that instead of the original in the A* search.
 
 ---
 
