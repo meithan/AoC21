@@ -16,7 +16,7 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 A relatively straightforward problem where recursion is the natural way to go, both when decoding the packets themselves and when evaluating their values. I had flashbacks to my time writing a decoder for Minecraft's [NBT format](https://minecraft.fandom.com/wiki/NBT_format).
 
-My solution to Part 1 was hindered by the damn padding bits. I misinterpreted the problem statement and thought any packet needed to have padding bits at the end if its numbers of bits wasn't a multiple of 4, when in fact that applied only the top-level packet, which means the padding bits can in fact just be ignored -- exactly like the statement says. Apparently [I wasn't the only one](https://www.reddit.com/r/adventofcode/comments/rhkazc/2021_day_16_me_spending_way_too_much_time_trying/).
+My solution to Part 1 was hindered by the damn padding bits. I misinterpreted the problem statement and thought that *any* packet had padding bits at the end if its number of bits wasn't a multiple of 4 ... when in fact that applies only the top-level packet, and the padding bits can in fact just be completely disregarrded -- exactly like the statement says. Apparently [I wasn't the only one](https://www.reddit.com/r/adventofcode/comments/rhkazc/2021_day_16_me_spending_way_too_much_time_trying/) who made this reading comprehension fail.
 
 Part 2 was written in a couple of minutes by just recursively evaluating the packet values.
 
