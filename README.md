@@ -20,8 +20,6 @@ My solution to Part 1 was hindered by the damn padding bits. I misinterpreted th
 
 Part 2 was written in a couple of minutes by just recursively evaluating the packet values.
 
-Everybody's wondering whether this decoding 
-
 ---
 
 **Day 15**: [Chiton](https://adventofcode.com/2021/day/15)<a name="day15"></a>
