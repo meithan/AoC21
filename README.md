@@ -29,7 +29,7 @@ For the initial y velocity I just arbitrarily set a range of (-100, 100), and ch
 Here's a visualization of all the trajectories that hit the target box:
 
 <p align="center">
-<img src="https://github.com/meithan/AoC21/blob/main/day17/day17_viz1.png" alt="drawing" width="500"/>
+<img src="https://github.com/meithan/AoC21/blob/main/day17/day17_viz1.png" alt="drawing" height="500"/>
 <img src="https://github.com/meithan/AoC21/blob/main/day17/day17_viz2.png" alt="drawing" height="500"/>
 </p>
 
