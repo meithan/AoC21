@@ -10,7 +10,7 @@ Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7]
 
 ---
 
-**Day 17**: [Packet Decoder](https://adventofcode.com/2021/day/17)<a name="day17"></a>
+**Day 17**: [Trick Shot](https://adventofcode.com/2021/day/17)<a name="day17"></a>
 
 21h 2m 52s (#21627) / 21h 17m 57s (#20203) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day17)
 
