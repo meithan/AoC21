@@ -6,17 +6,45 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13) [14](#day14) [15](#day15) [16](#day16)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13) [14](#day14) [15](#day15) [16](#day16) [17](#day17)
+
+---
+
+**Day 17**: [Packet Decoder](https://adventofcode.com/2021/day/17)<a name="day17"></a>
+
+21h 2m 52s (#21627) / 21h 17m 57s (#20203) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day17)
+
+For any physicist it's immediately tempting to derive a closed-form solution based on classical mechanics. But that only really works for the continuous version of the problem; by being discrete it cannot be solved exactly so directly. Still, some insight from physics / math does help narrow down the options.
+
+My code solves both parts by brute-forcing all initial velocities within some bounds and finding the maximum height as well as recording all solutions that hit the target box.
+
+The initial x velocity is bound by the following observations:
+
+- Because x velocity is reduced by one at every step, the maximum x distance traveled until x velocity reaches zero is given by dmax = vx0*(vx0+1)/2, since we travel a horizontal distance vx0 in the first step, vx0-1 in the second, etc., until reaching 0. Hence, we require dmax >= x1, where x1 is the low x-limit of the target box. Setting dmax = x1 and solving for vx0 yields (sqrt(8*x1+1)-1)/2. Taking the ceiling of that gives us a lower bound for the initial x velocity.
+
+- An upper bound for the initial x velocity is simply x2, the high x-limit of the target box. Any initial x velocity larger than this will overshoot the target box on the first step.
+
+For the initial y velocity I just arbitrarily set a range of (-100, 100), and checked if increasing it changed the results.
+
+Here's a visualization of all the trajectories that hit the target box:
+
+<p align="center">
+<img src="https://github.com/meithan/AoC21/blob/main/day17/day17_viz1.png" alt="drawing" width="500"/>
+</p>
+
+<p align="center">
+<img src="https://github.com/meithan/AoC21/blob/main/day17/day17_viz2.png" alt="drawing" height="500"/>
+</p>
 
 ---
 
 **Day 16**: [Packet Decoder](https://adventofcode.com/2021/day/16)<a name="day16"></a>
 
- 23h 23m 58s (#20864) / 1d 1h 2m 12s (#19410) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day16)
+23h 23m 58s (#20864) / 1d 1h 2m 12s (#19410) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day16)
 
 A relatively straightforward problem where recursion is the natural way to go, both when decoding the packets themselves and when evaluating their values. I had flashbacks to my time writing a decoder for Minecraft's [NBT format](https://minecraft.fandom.com/wiki/NBT_format).
 
-My solution to Part 1 was hindered by the damn padding bits. I misinterpreted the problem statement and thought that *any* packet had padding bits at the end if its number of bits wasn't a multiple of 4 ... when in fact that applies only the top-level packet, and the padding bits can in fact just be completely disregarrded -- exactly like the statement says. Apparently [I wasn't the only one](https://www.reddit.com/r/adventofcode/comments/rhkazc/2021_day_16_me_spending_way_too_much_time_trying/) who made this reading comprehension fail.
+My solution to Part 1 was hindered by the damn padding bits. I misinterpreted the problem statement and thought that *any* packet had padding bits at the end if its number of bits wasn't a multiple of 4 ... when in fact that applies only the top-level packet, and the padding bits can in fact just be completely disregarded -- exactly like the statement says. Apparently [I wasn't the only one](https://www.reddit.com/r/adventofcode/comments/rhkazc/2021_day_16_me_spending_way_too_much_time_trying/) who made this reading comprehension fail.
 
 Part 2 was written in a couple of minutes by just recursively evaluating the packet values.
 
