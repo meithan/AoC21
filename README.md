@@ -6,7 +6,23 @@ I'll be updating this as a sort of mini blog whenever I can, commenting on the d
 
 You can also check out our fancy [custom private leaderboard](https://meithan.net/AoC21/), with medals awarded to the fastest solvers. See (and download/fork!) the project [here](https://github.com/meithan/AoCBoard).
 
-Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13) [14](#day14) [15](#day15) [16](#day16) [17](#day17)
+Go to day: [1](#day1) [2](#day2) [3](#day3) [4](#day4) [5](#day5) [6](#day6) [7](#day7) [8](#day8) [9](#day9) [10](#day10) [11](#day11) [12](#day12) [13](#day13) [14](#day14) [15](#day15) [16](#day16) [17](#day17) [18](#day18)
+
+---
+
+**Day 18**: [Snailfish](https://adventofcode.com/2021/day/18)<a name="day18"></a>
+
+1d 0h 43m 47s (#13434) / 1d 0h 49m 16s (#13240) *(solved next day)* - [solution](https://github.com/meithan/AoC21/blob/main/day18)
+
+Whew, this has been the most cumbersome problem so far. Not difficult, simply grueling to code and get exactly right.
+
+I initially spent a considerable amount of time coding the "snailfish numbers" as [trees](https://en.wikipedia.org/wiki/Tree_(data_structure)), as this results in simple ways to search for things in the three as well as modifying / inserting things. And it worked, yielding fairly a elegant implementation. Except for the "spill rule" when "exploding" a pair: that requires locating the first number to the left and/or right in the string, regardless of its position in the tree. I couldn't figure out how to implement that (a backtracking search visiting the left or right element of each node beginning with the parent of the exploded node?).
+
+So I had to dump the elegant tree representation and simply make it a string parsing problem, writing code to determine nesting by counting opening and closing brackets, finding and parsing numeric expressions, and doing insertions / modifications to the string. In the end it worked, but required considerable tweaking to get just right. I initially coded it assuming no number could be greater than 18, but that's a mistake.
+
+After getting the complete reduction operation correct, coding the magnitude evaluation was straightforward: one just does as the problem suggests, writing a recursive function.
+
+For Part 2 I simply tried all pairs; takes a couple of seconds.
 
 ---
 
